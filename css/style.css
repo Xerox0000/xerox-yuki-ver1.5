@@ -2,7 +2,7 @@
     padding: 0px 2px 2px 7px;
     float: left;
     font-size: 29px;
-    display: inline;
+    text-align: center;
     font-family:sans-serif;
 }
 .header{
@@ -14,7 +14,8 @@ li{
 .header-list li{
     padding: 7px 0px 2px 1px;
     font-size: 13px;
-    color:#ffff00;
+    color:#ffd700;
+    text-align: center;
 }
 li span{
  font-weight:bold;

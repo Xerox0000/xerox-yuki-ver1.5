@@ -1,7 +1,7 @@
 .taitol{
     padding: 0px 2px 2px 7px;
     float: left;
-    font-size: 14px;
+    font-size: 25px;
     color:fff;
     display: inline;
     font-family:sans-serif;
@@ -9,13 +9,13 @@
 .header{
     display: block;
     background-color:#00bfff;
-    height: 20px; 
+    height: 29px; 
 }
 li{
     list-style:none;
 }
 .header-list li{
     padding: 7px 0px 2px 1px;
-    font-size: 9px;
+    font-size: 13px;
     color:#ffff00;
 }

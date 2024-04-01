@@ -30,3 +30,6 @@ main h3{
     border-left:6px solid #808080;
     text-align: start;
 }
+body{
+    font-family:sans-serif;
+}

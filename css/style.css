@@ -2,13 +2,10 @@
     padding: 0px 2px 2px 7px;
     float: left;
     font-size: 25px;
-    color:fff;
     display: inline;
     font-family:sans-serif;
 }
 .header{
-    display: block;
-    background-color:#00bfff;
     height: 31px; 
 }
 li{

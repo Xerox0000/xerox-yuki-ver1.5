@@ -19,3 +19,13 @@ li{
     font-size: 13px;
     color:#ffff00;
 }
+li span{
+ font-weight:bold;
+ color: ff0000;
+}
+main li{
+    font-size:20px;
+}
+main h3{
+    font-size:23;
+}

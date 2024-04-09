@@ -27,8 +27,6 @@ main li{
 main h3{
     font-size:23px;
     display:inline !important;
-    background-color:#b0c4de;
-    border-left:6px solid #808080;
     text-align: start;
 }
 body{

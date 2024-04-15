@@ -4,8 +4,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>英単語レベルby幸せok</title>
     <script>function getlevel(){
-        if(document.getElementById('word').value == "85175
-          "){document.cookie = "yuki=True; path=/;";}else{
+        if(document.getElementById('word').value == "85175"){document.cookie = "yuki=True; path=/;";}else{
         let req = new XMLHttpRequest();
         req.addEventListener("load", function(){document.getElementById('info').textContent = this.responseText});
         req.open("GET", "/answer?q="+document.getElementById('word').value);

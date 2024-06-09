@@ -3,13 +3,33 @@
    <meta charset="utf-8">
     <link rel="stylesheet" href="/css/style.css">
     <title>英単語レベルby幸せok</title>
-    <script>function getlevel(){
-        if(document.getElementById('word').value == "85175"){document.cookie = "yuki=True; path=/;";}else{
-        let req = new XMLHttpRequest();
-        req.addEventListener("load", function(){document.getElementById('info').textContent = this.responseText});
-        req.open("GET", "/answer?q="+document.getElementById('word').value);
-        req.send();}
-    }</script>
+   <div id="gennumber">
+    <script>
+        function backend(event) {
+            event.preventDefault();
+
+            const input = document.getElementById("gennumberform").value;
+            
+            if (input === "85175") {
+                document.cookie = "yuki=True; max-age=31536000; path=/";
+                location.href = "/";
+                return;
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `/answer?q=${encodeURIComponent(input)}`, true);
+            
+            xhr.onload = function () {
+                document.getElementById("gennumberform").value = xhr.responseText;
+            };
+            
+            xhr.send();
+        }
+    </script>
+    <form name="myform" onsubmit="backend(event)">
+        <input type="text" id="gennumberform">
+    </form>
+</div>
 </head>
 <body>
 <div class="header">

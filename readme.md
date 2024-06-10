@@ -1,5 +1,8 @@
-とりあえずインビのインスタンス置いとく
-https://docs.invidious.io/instances/
+幸せok改造インスタンス
+ <h3>このリポジトリはvercelのデプロイに対応しています</h3>
+<br><br>
+とりあえずインビのインスタンス置いとく<br>
+https://docs.invidious.io/instances/<br>
 https://invidious.namazso.eu/<br>
 偽装ページが違うやつ  
 ブログをブロックされるとき用  

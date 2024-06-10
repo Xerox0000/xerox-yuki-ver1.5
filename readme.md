@@ -1,5 +1,7 @@
 幸せok改造インスタンス
+<a href="https://vercel.com/">
 <h3>このリポジトリはvercelのデプロイに対応しています</h3>
+</a>
 <br><br>
 とりあえずインビのインスタンス置いとく<br>
 https://docs.invidious.io/instances/<br>

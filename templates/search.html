@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <title>連番を簡単に生成！！</title>
+    <title>xerox yt</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="/css/pure-min.css">
     <link rel="stylesheet" href="/css/grids-responsive-min.css">
@@ -57,7 +57,7 @@
                 
                             <div class="thumbnail">
                                 <img loading="lazy" tabindex="-1" class="thumbnail" src="{% if proxy == "True" %}/thumbnail?v={{ result['thumbnail'] }}{% else %}https://img.youtube.com/vi/{{ result['thumbnail'] }}/0.jpg{% endif %}">
-                                <p class="length">{{result["count"]}}個の動画</p>
+                                <p class="length">{{result["count"]}}個の動画がヒットしました</p>
                             </div>
                         <p dir="auto">{{result["title"]}}</p>
                     </a>
@@ -74,7 +74,7 @@
         <div class="pure-u-1 pure-u-lg-1-5" style="text-align:right">
 
             <a href="{{next}}">
-                次のページ
+                next page
             </a>
         </div>
     </div>

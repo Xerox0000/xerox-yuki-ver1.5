@@ -26,7 +26,7 @@ function displayHistory() {
         const historyArray = JSON.parse(historyCookie);
         historyArray.forEach((item, index) => {
             const div = document.createElement('div');
-            div.textContent = `${index + 1}: ${item}`;
+            div.innerHTML = `<a href="${item.link}"><img src="${item.thumbnail}" alt="${item.title}"><br>${index + 1}: ${item.title}</a>`;
             historyList.appendChild(div);
         });
     } else {
@@ -34,11 +34,11 @@ function displayHistory() {
     }
 }
 
-// ページ読み込み時に再生した動画を保存する例（仮の実装）
-function savePlayedVideo(videoTitle) {
+// 再生した動画を保存する関数
+function savePlayedVideo(videoTitle, videoThumbnail, videoLink) {
     let history = getCookie('videoHistory');
     history = history ? JSON.parse(history) : [];
-    history.push(videoTitle);
+    history.push({ title: videoTitle, thumbnail: videoThumbnail, link: videoLink });
     setCookie('videoHistory', JSON.stringify(history), 365);
 }
 
@@ -46,8 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // 履歴ボタンのクリックイベント
     document.getElementById('history-button').addEventListener('click', displayHistory);
 
-    // 仮の実装: 動画再生イベント（実際の実装に応じて変更が必要）
-    // ここでは例として動画タイトルを保存する関数を呼び出します。
-    // 動画が再生されるイベントに基づいてこの関数を呼び出してください。
-    // savePlayedVideo('再生した動画のタイトル');
+    // 動画リンクのクリックイベント
+    document.querySelectorAll('.video-link').forEach(link => {
+        link.addEventListener('click', (event) => {
+            const videoTitle = event.target.getAttribute('data-title');
+            const videoThumbnail = event.target.getAttribute('data-thumbnail');
+            const videoLink = event.target.href;
+            savePlayedVideo(videoTitle, videoThumbnail, videoLink);
+        });
+    });
 });

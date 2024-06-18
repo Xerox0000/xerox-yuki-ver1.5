@@ -29,11 +29,14 @@ main h3{
 }
 body{
     font-family:sans-serif;
-    background-color: #add8e6;
+
 }
 .cuuhaku{
     color: fff;
 } 
 p {
     color: #ffffff;
+}
+    body {
+    background-color: lightblue;
 }

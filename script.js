@@ -1,65 +1,60 @@
-const videos = [
-    { url: 'video1.mp4', hashtags: ['#short', '#fun'] },
-    { url: 'video2.mp4', hashtags: ['#short', '#music'] },
-    { url: 'video3.mp4', hashtags: ['#short', '#travel'] },
-    // 他の動画とハッシュタグを追加
-];
+// 閲覧履歴をCookieに保存する関数
+function saveHistory() {
+    const currentPage = window.location.href;
+    let history = getCookie('viewHistory');
+    if (!history) {
+        history = [];
+    } else {
+        history = JSON.parse(history);
+    }
 
-let userHistory = [];
+    // 重複を避けるため、既存の履歴から同じページを削除
+    history = history.filter(page => page !== currentPage);
 
-document.addEventListener('DOMContentLoaded', () => {
-    playRandomVideo(videos);
-    window.addEventListener('scroll', () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            playRandomVideo(videos);
-        }
-    });
-});
+    // 最新のページを先頭に追加
+    history.unshift(currentPage);
 
-function playRandomVideo(videoList) {
-    const videoContainer = document.getElementById('videoContainer');
-    videoContainer.innerHTML = ''; // コンテナをクリア
+    // 最大10件までに制限
+    if (history.length > 10) {
+        history.pop();
+    }
 
-    const randomIndex = Math.floor(Math.random() * videoList.length);
-    const video = document.createElement('video');
-    video.src = videoList[randomIndex].url;
-    video.controls = true;
-    video.autoplay = true;
-    videoContainer.appendChild(video);
-
-    // 閲覧履歴に追加
-    userHistory.push(videoList[randomIndex].url);
-
-    video.addEventListener('ended', () => {
-        playRandomVideo(videoList);
-    });
+    setCookie('viewHistory', JSON.stringify(history), 365);
 }
 
+// Cookieを取得する関数
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+// Cookieを設定する関数
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `${name}=${value}; ${expires}; path=/`;
+}
+
+// 閲覧履歴を表示する関数
 function showHistory() {
+    const history = getCookie('viewHistory');
+    if (!history) {
+        alert('閲覧履歴がありません。');
+        return;
+    }
+
+    const historyArray = JSON.parse(history);
+    let historyHtml = '<h3>閲覧履歴</h3><ul>';
+    historyArray.forEach(page => {
+        historyHtml += `<li><a href="${page}">${page}</a></li>`;
+    });
+    historyHtml += '</ul>';
+
     const historyContainer = document.getElementById('historyContainer');
-    historyContainer.innerHTML = ''; // コンテナをクリア
-    historyContainer.style.display = 'block';
-
-    if (userHistory.length === 0) {
-        historyContainer.innerText = '閲覧履歴がありません。';
-    } else {
-        userHistory.forEach(url => {
-            const video = document.createElement('video');
-            video.src = url;
-            video.controls = true;
-            historyContainer.appendChild(video);
-        });
-    }
+    historyContainer.innerHTML = historyHtml;
 }
 
-function searchVideos() {
-    const hashtagInput = document.getElementById('hashtagInput').value.trim();
-    const hashtag = hashtagInput.startsWith('#') ? hashtagInput : `#${hashtagInput}`;
-
-    const filteredVideos = videos.filter(video => video.hashtags.includes(hashtag));
-    if (filteredVideos.length > 0) {
-        playRandomVideo(filteredVideos);
-    } else {
-        alert('該当する動画が見つかりませんでした。');
-    }
-}
+// ページ読み込み時に閲覧履歴を保存
+window.onload = saveHistory;

@@ -13,7 +13,7 @@ function setCookie(name, value, days) {
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
 }
 
 // 履歴を表示する関数
@@ -34,21 +34,20 @@ function displayHistory() {
     }
 }
 
-// 検索ボタンのクリックイベント
-document.getElementById('search-button').addEventListener('click', () => {
-    const searchBox = document.getElementById('search-box');
-    const searchQuery = searchBox.value;
+// ページ読み込み時に再生した動画を保存する例（仮の実装）
+function savePlayedVideo(videoTitle) {
+    let history = getCookie('videoHistory');
+    history = history ? JSON.parse(history) : [];
+    history.push(videoTitle);
+    setCookie('videoHistory', JSON.stringify(history), 365);
+}
 
-    if (searchQuery) {
-        let history = getCookie('videoHistory');
-        history = history ? JSON.parse(history) : [];
-        history.push(searchQuery);
-        setCookie('videoHistory', JSON.stringify(history), 365);
+document.addEventListener('DOMContentLoaded', () => {
+    // 履歴ボタンのクリックイベント
+    document.getElementById('history-button').addEventListener('click', displayHistory);
 
-        alert(`検索クエリ「${searchQuery}」を履歴に保存しました。`);
-        searchBox.value = '';
-    }
+    // 仮の実装: 動画再生イベント（実際の実装に応じて変更が必要）
+    // ここでは例として動画タイトルを保存する関数を呼び出します。
+    // 動画が再生されるイベントに基づいてこの関数を呼び出してください。
+    // savePlayedVideo('再生した動画のタイトル');
 });
-
-// 履歴ボタンのクリックイベント
-document.getElementById('history-button').addEventListener('click', displayHistory);

@@ -11,8 +11,56 @@
         <h1>動画サイト</h1>
         <button id="historyButton">履歴</button>
         <div id="searchBox">
-            <input type="text" id="searchInput" placeholder="動画を検索">
-            <button id="searchButton">検索</button>
+            <input t<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <title>xerox yt</title>
+    <link rel="icon" href="/templates/icon.jpg" type="image/x-icon" >
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="/css/empty.css">
+    <link rel="stylesheet" href="/css/pure-min.css">
+    <link rel="stylesheet" href="/css/grids-responsive-min.css">
+    <link rel="stylesheet" href="/css/ionicons.min.css">
+    <link rel="stylesheet" href="/css/default.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+    <body class="no-theme">
+        <div class="pure-g h-box" id="search-widget">
+            <div class="pure-u-1" id="logo">
+                <h1 href="/" class="pure-menu-heading">xerox YT</h1>
+            <a href="/bbs"></a><br>
+            <a href="https://sites.google.com/view/xerox-interstellar-yt/proxy%E3%82%A4%E3%83%B3%E3%82%B9%E3%82%BF%E3%83%AC%E3%83%BC%E3%83%A9%E3%83%BC>xeroxが作るプロキシはここから</a>
+            </div>
+            <div class="pure-u-1-4"></div>
+            <div class="pure-u-1 pure-u-md-12-24 searchbar">
+                <form class="pure-form" action="/search" method="get">
+                    <fieldset>
+                        <input type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none" spellcheck="false" autofocus="" name="q" placeholder="検索" title="検索" value="">
+                    </fieldset>
+                </form>
+            </div>
+            <div class="pure-u-1-4"></div>
+            
+        </div>
+        <script>$('#searchbox').autocomplete({
+            source: function (request, response) {
+                {
+            var url = "/suggest?keyword="+ request.term
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.onload = function() {
+                response(JSON.parse(xhr.responseText));
+            }
+            xhr.send();
+        }},delay:300});</script>
+    </body>
+
+</html>
+searchButton">検索</button>
         </div>
         <div id="videoList">
             <!-- 動画リストがここに表示される -->

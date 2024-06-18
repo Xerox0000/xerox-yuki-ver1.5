@@ -26,7 +26,7 @@ function displayHistory() {
         const historyArray = JSON.parse(historyCookie);
         historyArray.forEach((item, index) => {
             const div = document.createElement('div');
-            div.innerHTML = `<a href="${item.link}"><img src="${item.thumbnail}" alt="${item.title}"><br>${index + 1}: ${item.title}</a>`;
+            div.innerHTML = `<a href="${item.link}"><img src="${item.thumbnail}" alt="${item.title}" width="100"><br>${index + 1}: ${item.title}</a>`;
             historyList.appendChild(div);
         });
     } else {
@@ -49,10 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 動画リンクのクリックイベント
     document.querySelectorAll('.video-link').forEach(link => {
         link.addEventListener('click', (event) => {
+            event.preventDefault();
             const videoTitle = event.target.getAttribute('data-title');
             const videoThumbnail = event.target.getAttribute('data-thumbnail');
             const videoLink = event.target.href;
             savePlayedVideo(videoTitle, videoThumbnail, videoLink);
+            window.location.href = videoLink;
         });
     });
 });

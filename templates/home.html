@@ -46,4 +46,28 @@
         }},delay:300});</script>
     </body>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short Video Feature</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="search-container">
+        <button onclick="showHistory()">履歴</button>
+        <input type="text" id="hashtagInput" placeholder="#ハッシュタグを入力">
+        <button onclick="searchVideos()">検索</button>
+    </div>
+    <div id="videoContainer" class="video-container">
+        <!-- 動画がここに表示される -->
+    </div>
+    <div id="historyContainer" class="history-container" style="display: none;">
+        <!-- 履歴がここに表示される -->
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+
+
 </html>
+

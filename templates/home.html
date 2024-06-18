@@ -1,62 +1,73 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-    <title>xerox yt</title>
-    <link rel="icon" href="/templates/icon.jpg" type="image/x-icon" >
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="/css/empty.css">
-    <link rel="stylesheet" href="/css/pure-min.css">
-    <link rel="stylesheet" href="/css/grids-responsive-min.css">
-    <link rel="stylesheet" href="/css/ionicons.min.css">
-    <link rel="stylesheet" href="/css/default.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <style>
-body {
-    background-color: lightblue;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>ホーム</title>
+    <script>
+        // Cookieを取得する関数
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
 
-</head>
-
-    <body class="no-theme">
-        <div class="pure-g h-box" id="search-widget">
-            <div class="pure-u-1" id="logo">
-                <h1 href="/" class="pure-menu-heading">xerox YT</h1>
-            <a href="/bbs"></a><br>
-            <a href="https://sites.google.com/view/xerox-proxy-collect/%E3%83%9B%E3%83%BC%E3%83%A0">xeroxが作るプロキシはここから</a>
-            </div>
-            <div class="pure-u-1-4"></div>
-            <div class="pure-u-1 pure-u-md-12-24 searchbar">
-                <form class="pure-form" action="/search" method="get">
-                    <fieldset>
-                        <input type="search" id="searchbox" autocomplete="on" autocorrect="on" autocapitalize="none" spellcheck="false" autofocus="" name="q" placeholder="検索" title="検索" value="">
-                    </fieldset>
-                </form>
-            </div>
-            <div class="pure-u-1-4"></div>
-            
-        </div>
-        <script>$('#searchbox').autocomplete({
-            source: function (request, response) {
-                {
-            var url = "/suggest?keyword="+ request.term
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-            xhr.onload = function() {
-                response(JSON.parse(xhr.responseText));
+        // Cookieに保存する関数
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
             }
-            xhr.send();
-        }},delay:300});</script>
-    </body>
-   <div class="header">
-        <!-- もともとの検索ボックスの上に「閲覧」ボタンを追加 -->
-        <button onclick="showHistory()">閲覧</button>
-        <div id="historyContainer"></div>
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
 
+        // 履歴を表示する関数
+        function displayHistory() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = '';
+
+            const historyCookie = getCookie('videoHistory');
+            if (historyCookie) {
+                const historyArray = JSON.parse(historyCookie);
+                historyArray.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.textContent = `${index + 1}: ${item}`;
+                    historyList.appendChild(div);
+                });
+            } else {
+                historyList.textContent = '履歴はありません。';
+            }
+        }
+
+        // 検索ボタンのクリックイベント
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('search-button').addEventListener('click', () => {
+                const searchBox = document.getElementById('search-box');
+                const searchQuery = searchBox.value;
+
+                if (searchQuery) {
+                    let history = getCookie('videoHistory');
+                    history = history ? JSON.parse(history) : [];
+                    history.push(searchQuery);
+                    setCookie('videoHistory', JSON.stringify(history), 365);
+
+                    alert(`検索クエリ「${searchQuery}」を履歴に保存しました。`);
+                    searchBox.value = '';
+                }
+            });
+
+            // 履歴ボタンのクリックイベント
+            document.getElementById('history-button').addEventListener('click', displayHistory);
+        });
+    </script>
+</head>
+<body>
+    <h1>動画検索</h1>
+    <input type="text" id="search-box" placeholder="動画を検索">
+    <button id="search-button">検索</button>
+    <a href="#">xeroxが作るプロキシはこちら</a>
+    <button id="history-button">履歴</button>
+    <div id="history-list"></div>
+</body>
 </html>
-
-
-

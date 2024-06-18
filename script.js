@@ -1,60 +1,57 @@
-// Cookieを取得する関数
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+body {
+    font-family: Arial, sans-serif;
 }
 
-// Cookieに保存する関数
-function setCookie(name, value, days) {
-    let expires = "";
-    if (days) {
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toUTCString();
-    }
-    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
 }
 
-// 履歴を表示する関数
-function displayHistory() {
-    const historyList = document.getElementById('history-list');
-    historyList.innerHTML = '';
-
-    const historyCookie = getCookie('videoHistory');
-    if (historyCookie) {
-        const historyArray = JSON.parse(historyCookie);
-        historyArray.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.innerHTML = `<a href="${item.link}"><img src="${item.thumbnail}" alt="${item.title}" width="100"><br>${index + 1}: ${item.title}</a>`;
-            historyList.appendChild(div);
-        });
-    } else {
-        historyList.textContent = '履歴はありません。';
-    }
+#searchBox {
+    margin: 20px 0;
 }
 
-// 再生した動画を保存する関数
-function savePlayedVideo(videoTitle, videoThumbnail, videoLink) {
-    let history = getCookie('videoHistory');
-    history = history ? JSON.parse(history) : [];
-    history.push({ title: videoTitle, thumbnail: videoThumbnail, link: videoLink });
-    setCookie('videoHistory', JSON.stringify(history), 365);
+#videoList {
+    margin-top: 20px;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 履歴ボタンのクリックイベント
-    document.getElementById('history-button').addEventListener('click', displayHistory);
+#historyButton {
+    margin-bottom: 20px;
+}
 
-    // 動画リンクのクリックイベント
-    document.querySelectorAll('.video-link').forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault();
-            const videoTitle = event.target.getAttribute('data-title');
-            const videoThumbnail = event.target.getAttribute('data-thumbnail');
-            const videoLink = event.target.href;
-            savePlayedVideo(videoTitle, videoThumbnail, videoLink);
-            window.location.href = videoLink;
-        });
-    });
-});
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

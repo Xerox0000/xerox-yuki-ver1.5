@@ -120,6 +120,9 @@
                 document.cookie = "yuki=True; max-age=31536000; path=/";
                 location.href = "/";
                 return;
+            }else{
+                <p>エラー</p>
+                retirn("間違っています。")
             }
             const xhr = new XMLHttpRequest();
             xhr.open('GET', `/answer?q=${encodeURIComponent(input)}`, true);
